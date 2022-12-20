@@ -6,15 +6,32 @@
     </div>
   </header>
   <div class="body-menu">
-    <div v-for="(aa, bb) in titles" :key="bb">
-      <!-- <img src="../assets/room0.jpg" alt="" /> -->
+    <!-- <div v-for="(aa, bb) in titles" :key="bb">
       <img src="./assets/room0.jpg" alt="" />
       <h4 v-on:click="modalCheck = true">{{ titles[bb] }}</h4>
       <p>{{ price[bb] }}</p>
       <button v-on:click="count[bb]++">허위매몰신고</button>
       <span>신고 수 {{ count[bb] }}</span>
+    </div> -->
+
+
+    <div v-for="(a,b) in post" :key="b" class="item">
+      <picture>
+        <img :src="post[b].image" alt="">
+        <h4 v-on:click="modalCheck = true">{{post[b].title}}</h4>
+        <p>{{ post[b].content }}</p>
+        <p>{{post[b].price }}</p>
+        <div>
+          {{ post[b].count }}
+          <button @click="post[b].count++">추천</button>          
+        </div>
+      </picture>
     </div>
 
+
+
+
+    
     <div class="black-bg" v-if="modalCheck === true">
       <div class="white-bg">
         <h4>상세페이지</h4>
@@ -32,18 +49,20 @@
   // function aa() {}
   // const bb = () => {};
 
+  import post from './post.js';
+
   export default {
     name: "App",
     data() {
       return {
         modalCheck: false,
         images: ["room0", "room1", "room2"],
-        count: [0, 0, 0],
         price1: 600000,
         price2: 700000,
         titles: ["역삼동 원룸", "천호동 원룸", "마포구 원룸"],
         price: [500000, 600000, 700000],
         menus: ["home", "shop", "about"],
+        post : post,
       };
     },
     methods: {
@@ -69,6 +88,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .item{
+    margin-bottom: 40px;
   }
 
   .menu {
@@ -84,6 +110,7 @@
   }
 
   .black-bg {
+    max-width: 420px;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -97,5 +124,9 @@
     padding: 20px;
     background: #fff;
     border-radius: 20px;
+  }
+
+  img{
+    width: 100%;
   }
 </style>
