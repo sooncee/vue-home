@@ -14,29 +14,34 @@
       <span>신고 수 {{ count[bb] }}</span>
     </div> -->
 
+    <hey msg="heyy"/>
 
     <div v-for="(a,b) in post" :key="b" class="item">
       <picture>
         <img :src="post[b].image" alt="">
-        <h4 v-on:click="modalCheck = true">{{post[b].title}}</h4>
+        <h4 v-on:click="modalCheck = true; modalNumber = b">{{post[b].title}}</h4>
         <p>{{ post[b].content }}</p>
         <p>{{post[b].price }}</p>
         <div>
           {{ post[b].count }}
           <button @click="post[b].count++">추천</button>          
-        </div>
+        </div> 
       </picture>
     </div>
-
-
-
-
     
     <div class="black-bg" v-if="modalCheck === true">
       <div class="white-bg">
-        <h4>상세페이지</h4>
-        <p>상세페이지 내용</p>
-        <button @:click="modalCheck = false">닫기</button>
+        <h4>{{ post[modalNumber].title }}</h4>
+        <img :src="post[modalNumber].image" alt="">
+        <p>{{post[modalNumber].content}}</p>
+        <p>{{post[modalNumber].price}}</p>
+        <div>
+          {{ post[modalNumber].count }}
+          <button @click="post[modalNumber].count++">추천</button>    
+        </div>
+        <div>
+          <button @:click="modalCheck = false">닫기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -44,11 +49,8 @@
 </template>
 
 <script>
-  // import HelloWorld from './components/HelloWorld.vue'
-
-  // function aa() {}
-  // const bb = () => {};
-
+  // import HelloWorld from './components/HelloWorld.vue' 
+  import worldBanner from './components/worldBanner.vue' 
   import post from './post.js';
 
   export default {
@@ -56,6 +58,7 @@
     data() {
       return {
         modalCheck: false,
+        modalNumber: 0,
         images: ["room0", "room1", "room2"],
         price1: 600000,
         price2: 700000,
@@ -72,7 +75,7 @@
       },
     },
     components: {
-      // HelloWorld
+      hey : worldBanner,
     },
   };
 </script>
