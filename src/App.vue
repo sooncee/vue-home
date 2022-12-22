@@ -16,20 +16,14 @@
 
     <hey msg="heyy"/>
 
-    <div v-for="(a,b) in post" :key="b" class="item">
-      <picture>
-        <img :src="post[b].image" alt="">
-        <h4 v-on:click="modalCheck = true; modalNumber = b">{{post[b].title}}</h4>
-        <p>{{ post[b].content }}</p>
-        <p>{{post[b].price }}</p>
-        <div>
-          {{ post[b].count }}
-          <button @click="post[b].count++">추천</button>          
-        </div> 
-      </picture>
-    </div>
+    <!-- <card :prdId="post[0]"/> -->
+    <card :prdId="cb" v-for="(cb,ii) in post" :key ="ii"/>
+    <card :prdId="post[ii]" v-for="(cb,ii) in post" :key ="ii"/>
+
     
-    <div class="black-bg" v-if="modalCheck === true">
+    
+    <!-- modal -->
+    <!-- <div class="black-bg" v-if="modalCheck === true">
       <div class="white-bg">
         <h4>{{ post[modalNumber].title }}</h4>
         <img :src="post[modalNumber].image" alt="">
@@ -43,7 +37,8 @@
           <button @:click="modalCheck = false">닫기</button>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </div>
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
@@ -51,7 +46,9 @@
 <script>
   // import HelloWorld from './components/HelloWorld.vue' 
   import worldBanner from './components/worldBanner.vue' 
+  import card from './components/card.vue'
   import post from './post.js';
+  
 
   export default {
     name: "App",
@@ -59,11 +56,6 @@
       return {
         modalCheck: false,
         modalNumber: 0,
-        images: ["room0", "room1", "room2"],
-        price1: 600000,
-        price2: 700000,
-        titles: ["역삼동 원룸", "천호동 원룸", "마포구 원룸"],
-        price: [500000, 600000, 700000],
         menus: ["home", "shop", "about"],
         post : post,
       };
@@ -76,6 +68,7 @@
     },
     components: {
       hey : worldBanner,
+      card,
     },
   };
 </script>

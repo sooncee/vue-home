@@ -1,5 +1,5 @@
 <template>
-  배너요
+  배너 컴포넌트요
 </template>
 
 <script>
