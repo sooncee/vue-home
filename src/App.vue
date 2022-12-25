@@ -6,51 +6,30 @@
     </div>
   </header>
   <div class="body-menu">
-    <!-- <div v-for="(aa, bb) in titles" :key="bb">
-      <img src="./assets/room0.jpg" alt="" />
-      <h4 v-on:click="modalCheck = true">{{ titles[bb] }}</h4>
-      <p>{{ price[bb] }}</p>
-      <button v-on:click="count[bb]++">허위매몰신고</button>
-      <span>신고 수 {{ count[bb] }}</span>
-    </div> -->
+   <!-- <div class="start" :class="{end : modalCheck}"> -->
+    <transition name="fade">
+      <Modal @closeModal="modalCheck = false" v-bind:posts="post" :modalCheck="modalCheck" :modalNumber="modalNumber" />
+    </transition>
+   <!-- </div> -->
 
-    <hey msg="heyy"/>
+   <!-- <transition name="fade"> -->
+     <hey msg="heyy"/>
+     <!-- </transition> -->
 
-    <!-- <card :prdId="post[0]"/> -->
-    <card :prdId="cb" v-for="(cb,ii) in post" :key ="ii"/>
-    <card :prdId="post[ii]" v-for="(cb,ii) in post" :key ="ii"/>
+      <Card @openModal="modalCheck = true; modalNumber = $event" :prdId="post[b]" v-for="(a,b) in post" :key="b" />
 
     
-    
-    <!-- modal -->
-    <!-- <div class="black-bg" v-if="modalCheck === true">
-      <div class="white-bg">
-        <h4>{{ post[modalNumber].title }}</h4>
-        <img :src="post[modalNumber].image" alt="">
-        <p>{{post[modalNumber].content}}</p>
-        <p>{{post[modalNumber].price}}</p>
-        <div>
-          {{ post[modalNumber].count }}
-          <button @click="post[modalNumber].count++">추천</button>    
-        </div>
-        <div>
-          <button @:click="modalCheck = false">닫기</button>
-        </div>
-      </div>
-    </div> -->
 
   </div>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
 
 <script>
-  // import HelloWorld from './components/HelloWorld.vue' 
   import worldBanner from './components/worldBanner.vue' 
-  import card from './components/card.vue'
   import post from './post.js';
-  
+  import Modal from './components/modal.vue'
+  import card from './components/card.vue'
 
-  export default {
+  export default { 
     name: "App",
     data() {
       return {
@@ -68,7 +47,8 @@
     },
     components: {
       hey : worldBanner,
-      card,
+      Modal,
+      Card:card,
     },
   };
 </script>
@@ -76,6 +56,39 @@
 <style>
   * {
     box-sizing: border-box;
+  }
+
+  .fade-enter-from{
+    opacity: 0;
+  }
+  .fade-enter-active{
+    transition: all .3s ease-in-out;
+  }
+  .fade-enter-to{
+    opacity: 1;
+  }
+
+  .fade-leave-from{
+    opacity: 1;
+  }
+  .fade-leave-active{
+    transition: all .3s ease-in-out;
+  }
+  .fade-leave-to{
+    opacity: 0;
+  }
+
+  .start{
+    opacity: 0;
+    transition: all .3s ease-in-out;
+  }
+  .end{
+    opacity: 1;
+  }
+
+  .discount{
+    padding:40px;
+    background: #f9f9f9;
   }
 
   #app {
