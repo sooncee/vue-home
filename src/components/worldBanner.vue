@@ -1,12 +1,24 @@
 <template>
   <div class="discount">
-    DIscount 배너 컴포넌트요
+    DIscount {{sale}}% 컴포넌트요
   </div>
 </template>
 
 <script>
-export default {
 
+export default {
+  data() {
+    return {
+      sale: 30
+    }
+  },
+  mounted() {
+    setInterval(() => {
+        if(this.sale > 0){
+          this.sale = this.sale - 1
+        }
+      }, 100);
+  },
 }
 </script>
 

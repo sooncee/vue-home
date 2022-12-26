@@ -40,7 +40,13 @@ export default {
       posts : Object,
       modalNumber : Number,
       modalCheck : Boolean,
-   }
+   },
+   updated() {
+     if(this.month === 2){
+      alert("2개월은 안됌")
+      this.month = 3
+     }
+   },
 }
 </script>
 

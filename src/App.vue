@@ -15,6 +15,13 @@
    <!-- <transition name="fade"> -->
      <hey msg="heyy"/>
      <!-- </transition> -->
+     <div>
+       <button @click="sortInitial">기본값</button>
+      <button @click="sortPrice">가격낮은순</button>
+      <button @click="sortPriceUp">가격높은순</button>
+      <button @click="sortChar">가나다순</button>
+      <button @click="sortFilter">50만원이하</button>
+     </div>
 
       <Card @openModal="modalCheck = true; modalNumber = $event" :prdId="post[b]" v-for="(a,b) in post" :key="b" />
 
@@ -36,6 +43,7 @@
         modalCheck: false,
         modalNumber: 0,
         menus: ["home", "shop", "about"],
+        postOriginal : [...post],
         post : post,
       };
     },
@@ -44,6 +52,30 @@
         // this 내 오브젝트를 뜻함
         this.count++;
       },
+      sortPrice(){
+        this.post.sort(function(a,b){
+          return a.price - b.price
+        })
+      },
+      sortPriceUp(){
+        this.post.sort(function(a,b){
+          return b.price - a.price
+        })
+      },
+      sortChar(){
+        this.post.sort(function(a,b){
+          if(a.title < b.title){
+            return 1
+          }
+          if(a.title > b.title){
+            return -1
+          }
+          return 0
+        })
+      },
+      sortInitial(){
+        this.post = [...this.postOriginal]
+      }
     },
     components: {
       hey : worldBanner,
